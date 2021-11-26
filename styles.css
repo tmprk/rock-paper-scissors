@@ -1,0 +1,113 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#computer-score,
+#player-score {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: papayawhip;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.box {
+    /* height: 100px; */
+    background-color: peachpuff;
+    border: 3px solid rgb(219, 158, 105);
+    border-radius: 18px;
+    padding: 16px;
+    flex-shrink: 1;
+}
+
+#board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    border-radius: 24px;
+}
+
+#instructions {
+    font-size: 24px;
+}
+
+.slot {
+    height: 60px;
+    width: 45px;
+    background-color: rgb(255, 204, 159);
+    border: 2px solid rgb(235, 178, 129);
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+
+    animation-timing-function: ease-in;
+    transition: opacity 100ms;
+    
+    opacity: 0;
+    transition: 300ms cubic-bezier(.76,.01,.02,1), opacity 100ms;
+    transform: scale(2) translateY(-40px)
+}
+
+.options {
+    display: flex;
+    gap: 16px;
+}
+
+.card {
+    font-size: 24px;
+    padding: 8px;
+    background-color: rgb(250, 190, 137);
+    border: 2px solid rgb(235, 178, 129);
+    border-radius: 8px;
+    transition: transform ease 300ms;
+}
+
+.selectable:hover {
+    cursor: pointer;
+    transform: translate(0, -8px);
+}
+
+.selectable {
+    transition: transform ease 300ms;
+}
+
+#dialog {
+    display: none;
+}
+
+#start-game {
+    font-size: 20px;
+    padding: 8px 16px;
+    background-color: yellowgreen;
+    border: 3px solid rgb(110, 148, 33);
+    border-radius: 8px;
+    color: #506d16;
+    transition: transform ease 300ms;
+}
+
+#start-game:hover {
+    cursor: pointer;
+    transform: translate(0, -3px);
+}
