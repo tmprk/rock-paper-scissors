@@ -1,17 +1,5 @@
 let playerScore = 0;
 let computerScore = 0;
-let games = 5
-
-let moves = {
-    '✊🏻': 0,
-    '✋🏻': 1,
-    '✌🏻': 2,
-}
-
-document.getElementById('start-game').addEventListener('click', function () {
-    resetMatch();
-    startGame();
-});
 
 let dialog = document.getElementById('dialog')
 let startButton = document.getElementById('start-game')
@@ -22,11 +10,15 @@ let computerSlot = document.getElementById('computer-slot')
 let computerScoreText = document.getElementById('computer-score')
 let playerScoreText = document.getElementById('player-score')
 
-function startGame() {
-    // make dialog visible and hide start button
-    dialog.style.display = 'block';
-    startButton.style.display = 'none';
+let resultsList = document.getElementById('results-list')
 
+let moves = {
+    '✊🏻': 0,
+    '✋🏻': 1,
+    '✌🏻': 2,
+}
+
+function startGame() {
     document.querySelectorAll('.selectable').forEach(function (item) {
         item.addEventListener('click', function () {
             // get computer player's selection
@@ -47,20 +39,25 @@ function startGame() {
             let result = playRound(playerSelection, computerSelection)
             if (result == 1) {
                 playerScore++;
-                playerScoreText.innerHTML = `Player Score: ${playerScore}`
+                playerScoreText.textContent = `Player Score: ${playerScore}`
                 message = `You Win! ${playerSelection} beats ${computerSelection}.`
                 dialog.style.color = 'green'
+
+                addToScoreboard(`${playerSelection} beats ${computerSelection}.`, 'green');
             } else if (result == 2) {
                 computerScore++;
-                computerScoreText.innerHTML = `Computer Score: ${computerScore}`
+                computerScoreText.textContent = `Computer Score: ${computerScore}`
                 message = `You Lose! ${computerSelection} beats ${playerSelection}.`
                 dialog.style.color = 'red'
+
+                addToScoreboard(`${computerSelection} beats ${playerSelection}.`, 'red');
             } else {
                 message = 'It\'s a tie.'
+                addToScoreboard('Tied.', 'white', textColor='black');
             }
             dialog.innerHTML = message
 
-            if (playerScore == 5 || computerScore == 5) {
+            if (gameOver()) {
                 (playerScore > computerScore) ? dialog.innerHTML = "You win the match!" : "Better luck next time!";
                 console.log("end game")
                 setTimeout(function () {
@@ -73,19 +70,36 @@ function startGame() {
                 }, 2000)
             }
             console.log(`Player: ${playerScore}, Computer: ${computerScore}`)
-        });
+        })
     });
+}
+
+function addToScoreboard(text, color, textColor='white') {
+    let newLI = document.createElement('li');
+    newLI.classList.add('list-item');
+    newLI.textContent = text
+    newLI.style.background = color;
+    newLI.style.color = textColor
+    resultsList.appendChild(newLI)
+    setTimeout(function () {
+        newLI.className = newLI.className + " show";
+    }, 10);
+}
+
+function gameOver() {
+    return (playerScore == 5) || (computerScore == 5)
 }
 
 function resetMatch() {
     playerScore = 0
     computerScore = 0
-    games = 0
 
     dialog.style.display = 'none';
     startButton.style.display = 'block';
     playerScoreText.innerHTML = `Player Score: 0`
     computerScoreText.innerHTML = `Computer Score: 0`
+
+    resultsList.innerHTML = ''
 }
 
 function refreshSelection() {
@@ -140,3 +154,13 @@ function playRound(playerSelection, computerSelection) {
 //         }
 //     }
 // }
+
+document.getElementById('start-game').addEventListener('click', function () {
+    resetMatch();
+
+    // make dialog visible and hide start button
+    dialog.style.display = 'block';
+    startButton.style.display = 'none'
+});
+
+startGame();

@@ -63,10 +63,9 @@ body {
     font-size: 24px;
 
     animation-timing-function: ease-in;
-    transition: opacity 100ms;
     
     opacity: 0;
-    transition: 300ms cubic-bezier(.76,.01,.02,1), opacity 100ms;
+    transition: transform 300ms cubic-bezier(.76,.01,.02,1), opacity 100ms;
     transform: scale(2) translateY(-40px)
 }
 
@@ -110,4 +109,44 @@ body {
 #start-game:hover {
     cursor: pointer;
     transform: translate(0, -3px);
+}
+
+#results {
+    text-align: center;
+    background-color: white;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 16px 16px 0px 0px;
+    width: 120px;
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+#results-title {
+    padding: 4px;
+}
+
+#results-list {
+    list-style-position: inside;
+    /* background-color: rgb(154, 165, 154); */
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.list-item {
+    padding: 4px;
+    background: #ff5900;
+    color: #fff;
+    transition: all 0.6s ease-out;
+    opacity: 0;
+    margin: 2px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.show {
+    opacity: 1;
 }
